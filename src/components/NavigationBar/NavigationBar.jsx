@@ -39,6 +39,16 @@ const NavigationBar = () => {
         >
             Home
         </NavLink>
+        <NavLink
+            to='/addATask'
+            className={({ isActive }) =>
+                isActive
+                    ? "bg-slate-900 px-3 py-1 rounded-lg"
+                    : "hover:bg-slate-900 ease-in-out duration-200 rounded-lg px-3 py-1"
+            }
+        >
+            Add A Task
+        </NavLink>
         {
             user ?
                 <></> :
@@ -95,7 +105,7 @@ const NavigationBar = () => {
                                     </li>
                                     <hr className="border-black" />
                                     <li><a className="text-xl flex flex-wrap"><span className="font-semibold">Bio:</span> {userInfo?.bio}</a></li>
-                                    <li><button onClick={handleLogOut} className="bg-pink-400 text-xl font-semibold mt-5">Logout</button></li>
+                                    <div className="text-center"><button onClick={handleLogOut} className="bg-pink-600 text-xl font-semibold mt-5 w-fit px-4 py-1 rounded-lg hover:bg-pink-800 ease-in-out duration-200 text-white">Logout</button></div>
                                 </ul>
                             </div>
                         </> :

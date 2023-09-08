@@ -41,7 +41,7 @@ const Login = () => {
 
     return (
         <div className="my-20 px-20">
-            <h1 className="text-4xl text-center font-semibold mb-5">Sign Up Now</h1>
+            <h1 className="text-4xl text-center font-semibold mb-5">Login Now</h1>
             <form onSubmit={handleLogin}>
                 <div className="relative z-0 w-full mb-6 group">
                     <input type="email" name="email" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
