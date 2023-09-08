@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from './../../providers/AuthProvider';
+import toast from "react-hot-toast";
 
 const SignUp = () => {
 
@@ -42,10 +43,31 @@ const SignUp = () => {
                             const createdUser = result.user
                             updateUsersProfile(createdUser, userName, image)
                                 .then(() => {
-                                    
+
+                                    const userInfo = {
+                                        userEmail: email,
+                                        userName: userName,
+                                        userImage: image,
+                                        bio: bio
+                                    }
+
+                                    fetch('http://localhost:5000/users', {
+                                        method: 'POST',
+                                        headers: {
+                                            'content-type': 'application/json'
+                                        },
+                                        body: JSON.stringify(userInfo)
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if (data.insertedId) {
+                                                toast.success('User has been created successfully')
+                                            }
+                                        })
                                 })
                                 .catch(error => {
                                     console.log(error)
+                                    setError(error.message)
                                 })
                         })
                         .catch(error => {
