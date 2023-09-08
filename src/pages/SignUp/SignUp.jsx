@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
 import { AuthContext } from './../../providers/AuthProvider';
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
 
     const { createUser, updateUsersProfile } = useContext(AuthContext)
 
     const [error, setError] = useState('')
+
+    const navigate = useNavigate()
 
     const handleSignUp = event => {
         event.preventDefault()
@@ -62,6 +65,7 @@ const SignUp = () => {
                                         .then(data => {
                                             if (data.insertedId) {
                                                 toast.success('User has been created successfully')
+                                                navigate('/')
                                             }
                                         })
                                 })
@@ -102,7 +106,10 @@ const SignUp = () => {
                     <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="file_input">Upload Image</label>
                     <input name="image" className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" required />
                 </div>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <div className="mb-3">
+                    <Link to='/login' className="hover:underline text-blue-500 font-semibold">Already have an account?</Link>
+                </div>
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign Up</button>
 
                 {error && <p className="text-red-600 font-bold text-center">Error: {error}</p>}
             </form>
