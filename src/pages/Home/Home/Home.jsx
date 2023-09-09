@@ -85,7 +85,7 @@ const Home = () => {
                     <></>
             }
             <AddingMembersModal></AddingMembersModal>
-            <AssigningTaskModal task={task}></AssigningTaskModal>
+            <AssigningTaskModal task={task} setTasks={setTasks}></AssigningTaskModal>
         </div>
     );
 };

@@ -1,9 +1,23 @@
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const SingleTask = ({ task, setTasks, setTask }) => {
 
     // TODO: Implementation of mark as in progress
+
+    const { user } = useContext(AuthContext)
+
+    const [userInfo, setUserInfo] = useState(null)
+
+    useEffect(() => {
+        if(user){
+            const users = JSON.parse(localStorage.getItem("users")) || []
+            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            setUserInfo(loggedUser)
+        }
+    }, [user])
 
     const { id, taskTitle, taskStatus, taskPriority, taskDescription, dueDate, assign, teamName } = task
 
@@ -15,7 +29,8 @@ const SingleTask = ({ task, setTasks, setTask }) => {
         if (taskToUpdate) {
             taskToUpdate.taskStatus = 'Completed'
             localStorage.setItem("tasks", JSON.stringify(tasks))
-            setTasks(tasks)
+            const tasksToDisplay = tasks.filter(singleTask => singleTask.teamName === userInfo.teamName)
+            setTasks(tasksToDisplay)
             toast.success("Task status has been set to completed")
         }
         else {
@@ -31,7 +46,8 @@ const SingleTask = ({ task, setTasks, setTask }) => {
         if (taskToUpdate) {
             taskToUpdate.taskStatus = 'In Progress'
             localStorage.setItem("tasks", JSON.stringify(tasks))
-            setTasks(tasks)
+            const tasksToDisplay = tasks.filter(singleTask => singleTask.teamName === userInfo.teamName)
+            setTasks(tasksToDisplay)
             toast.success("Task status has been set to in progress")
         }
     }
