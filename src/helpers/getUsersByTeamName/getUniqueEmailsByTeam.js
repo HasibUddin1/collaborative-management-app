@@ -1,22 +1,25 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
-
 export const getUniqueEmailsByTeam = () => {
+    const { user } = useContext(AuthContext);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    const { user } = useContext(AuthContext)
-
-    const users = JSON.parse(localStorage.getItem("users")) || []
     if (user) {
-        const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
-        const emails = new Set();
+        const loggedUser = users.find((singleUser) => singleUser.userEmail === user.email);
 
-        users.forEach((user) => {
-            if (user.teamName === loggedUser.teamName && user.userEmail) {
-                emails.add(user.userEmail);
-            }
-        });
+        if (loggedUser) {
+            const teamMembers = users
+                .filter((user) => user.teamName === loggedUser.teamName && user.userEmail)
+                .map((user) => user.userEmail);
 
-        return Array.from(emails)
+            // Convert the array of emails to a Set to remove duplicates
+            const uniqueEmails = new Set(teamMembers);
+
+            // Convert the Set back to an array
+            return Array.from(uniqueEmails);
+        }
     }
+
+    return [];
 };
