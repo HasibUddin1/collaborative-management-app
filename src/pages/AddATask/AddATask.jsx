@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { generateRandomId } from "../../helpers/generateRandomId/generateRandomId";
 import toast from "react-hot-toast";
 import { getUniqueEmailsByTeam } from "../../helpers/getUsersByTeamName/getUniqueEmailsByTeam";
+import { AuthContext } from "../../providers/AuthProvider";
 
 
 const AddATask = () => {
 
     const [error, setError] = useState('')
     const teamMembers = getUniqueEmailsByTeam()
+
+    const { user } = useContext(AuthContext)
+
+    const [userInfo, setUserInfo] = useState({})
+
+    useEffect(() => {
+        if (user) {
+            const users = JSON.parse(localStorage.getItem("users")) || []
+            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            setUserInfo(loggedUser)
+        }
+    }, [user])
 
     const handleAddTask = event => {
         event.preventDefault()
@@ -57,7 +70,8 @@ const AddATask = () => {
             assign,
             dueDate,
             taskDescription,
-            taskStatus
+            taskStatus,
+            teamName: userInfo.teamName
         }
 
         const existingTasks = JSON.parse(localStorage.getItem("tasks")) || []
@@ -102,7 +116,7 @@ const AddATask = () => {
                         <label className="text-xl font-semibold" htmlFor="assign">Assign To</label>
                         <select className="w-full px-4 py-2 rounded-lg block mt-2" name="assign" id="assign">
                             {
-                                teamMembers.map(team => <option key={team} value={team}>{team}</option>)
+                                teamMembers?.map(team => <option key={team} value={team}>{team}</option>)
                             }
                         </select>
                     </div>

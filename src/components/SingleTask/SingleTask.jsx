@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 
 
 const SingleTask = ({ task, setTasks }) => {
@@ -15,9 +16,23 @@ const SingleTask = ({ task, setTasks }) => {
             taskToUpdate.taskStatus = 'Completed'
             localStorage.setItem("tasks", JSON.stringify(tasks))
             setTasks(tasks)
+            toast.success("Task status has been set to completed")
         }
         else {
             console.log("Task not found")
+        }
+    }
+
+    const handleInProgress = id => {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || []
+
+        const taskToUpdate = tasks.find(task => task.id === id)
+
+        if(taskToUpdate){
+            taskToUpdate.taskStatus = 'In Progress'
+            localStorage.setItem("tasks", JSON.stringify(tasks))
+            setTasks(tasks)
+            toast.success("Task status has been set to in progress")
         }
     }
 
@@ -32,8 +47,8 @@ const SingleTask = ({ task, setTasks }) => {
                 <div className="card-actions justify-end">
                     {
                         taskStatus === 'Completed' ?
-                            <button className="btn btn-neutral w-fit">Completed</button> :
-                            <button onClick={() => handleCompleted(id)} className="btn btn-warning">Mark as Completed</button>
+                            <button onClick={() => handleInProgress(id)} className="btn btn-neutral w-fit">Mark as In Progress</button> :
+                            <button onClick={() => handleCompleted(id)} className="btn btn-success">Mark as Completed</button>
                     }
                 </div>
                 <p className="text-end flex flex-col"><span className="font-semibold">Assigned To:</span> {assign}</p>

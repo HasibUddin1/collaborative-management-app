@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SingleTask from "../../../components/SingleTask/SingleTask";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 
 
@@ -8,12 +9,18 @@ const Home = () => {
 
     const [tasks, setTasks] = useState([])
 
-    const [filter, setFilter] = useState('all')
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
+        const users = JSON.parse(localStorage.getItem("users")) || []
+        const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
         const storedTasks = JSON.parse(localStorage.getItem("tasks")) || []
-        setTasks(storedTasks)
-    }, [])
+        const tasksToDisplay = storedTasks.filter(singleTask => singleTask?.teamName === loggedUser?.teamName)
+        setTasks(tasksToDisplay)
+    }, [user])
+
+
+    const [filter, setFilter] = useState('all')
 
     const filteredTasks = tasks.filter(task => {
 

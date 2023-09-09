@@ -8,7 +8,7 @@ const NavigationBar = () => {
 
     const { user, logOut } = useContext(AuthContext)
 
-    const [userInfo, setUserInfo] = useState({})
+    const [userInfo, setUserInfo] = useState(null)
 
     useEffect(() => {
         if (user) {
