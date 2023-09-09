@@ -9,47 +9,31 @@ import AddingMembersModal from "../../../components/AddingMembersModal/AddingMem
 const Home = () => {
 
     const [tasks, setTasks] = useState([])
+    const [filter, setFilter] = useState('all')
 
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        const users = JSON.parse(localStorage.getItem("users")) || []
-        const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
-        const storedTasks = JSON.parse(localStorage.getItem("tasks")) || []
-        const tasksToDisplay = storedTasks.filter(singleTask => singleTask?.teamName === loggedUser?.teamName)
-        setTasks(tasksToDisplay)
-    }, [user])
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email);
+        const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
+        // Filter tasks based on both user and filter
+        const tasksToDisplay = storedTasks.filter(singleTask => {
+            return (
+                singleTask?.teamName === loggedUser?.teamName &&
+                (filter === 'all' ||
+                    (filter === 'Completed' && singleTask.taskStatus === 'Completed') ||
+                    (filter === 'In Progress' && singleTask.taskStatus === 'In Progress') ||
+                    (filter === 'Pending' && singleTask.taskStatus === 'Pending') ||
+                    (filter === 'High' && singleTask.taskPriority === 'High' && singleTask.taskStatus === 'In Progress') ||
+                    (filter === 'Low' && singleTask.taskPriority === 'Low' && singleTask.taskStatus === 'In Progress'))
+            );
+        });
 
-    const [filter, setFilter] = useState('all')
+        setTasks(tasksToDisplay);
+    }, [user, filter]);
 
-    const filteredTasks = tasks.filter(task => {
-
-        if (filter === 'all') {
-            return true
-        }
-
-        if (filter === 'Completed') {
-            return task.taskStatus === 'Completed'
-        }
-
-        if (filter === 'In Progress') {
-            return task.taskStatus === 'In Progress'
-        }
-
-        if (filter === 'Pending') {
-            return task.taskStatus === 'Pending'
-        }
-        if (filter === 'High') {
-            return task.taskPriority === 'High' && task.taskStatus === 'In Progress';
-        }
-
-        if (filter === 'Low') {
-            return task.taskPriority === 'Low' && task.taskStatus === 'In Progress';
-        }
-
-        return true
-    })
 
     return (
         <div className="p-5 w-9/12 mx-auto">
@@ -73,12 +57,12 @@ const Home = () => {
                 </div>
             </div>
             {
-                filteredTasks.length === 0 ?
+                tasks.length === 0 ?
                     <h1 className="text-center text-4xl font-semibold">You do not have any tasks now. Create your task by going to <Link className="text-blue-500 hover:underline" to='/addATask'>Add A Task</Link></h1> :
                     <>
                         <div className="grid xl:grid-cols-3 gap-5">
                             {
-                                filteredTasks.map(task => <SingleTask
+                                tasks.map(task => <SingleTask
                                     key={task.id}
                                     task={task}
                                     tasks={tasks}

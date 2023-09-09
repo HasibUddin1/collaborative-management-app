@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getUniqueEmails } from "../../helpers/getUniqueTeamNames/getUniqueEmails";
+import { getUniqueEmails } from "../../helpers/getUniqueEmails/getUniqueEmails";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 

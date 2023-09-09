@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import AddATask from "../pages/AddATask/AddATask";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
                 path: 'addATask',
                 element: <PrivateRoute><AddATask></AddATask></PrivateRoute>
             },
+            {
+                path: 'dashboard',
+                element: <Dashboard></Dashboard>
+            }
         ]
     }
 ])

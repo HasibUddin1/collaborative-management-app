@@ -40,18 +40,29 @@ const NavigationBar = () => {
             Home
         </NavLink>
         <NavLink
-            to='/addATask'
+            to='/dashboard'
             className={({ isActive }) =>
                 isActive
                     ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
                     : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
             }
         >
-            Add A Task
+            Dashboard
         </NavLink>
         {
             user ?
-                <></> :
+                <>
+                    <NavLink
+                        to='/addATask'
+                        className={({ isActive }) =>
+                            isActive
+                                ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                                : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
+                        }
+                    >
+                        Add A Task
+                    </NavLink>
+                </> :
                 <>
                     <NavLink
                         to='/login'
