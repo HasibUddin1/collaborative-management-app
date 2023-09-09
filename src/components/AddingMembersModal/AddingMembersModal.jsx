@@ -39,8 +39,10 @@ const AddingMembersModal = () => {
     return (
         <dialog id="my_modal_1" className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Invite Users</h3>
+                <h3 className="font-bold text-2xl">Invite Users</h3>
                 {
+                    userEmails.length === 0 ? 
+                    <h1 className="text-xl font-semibold">No users available. Create accounts in order to view your team members</h1> :
                     userEmails.map(userEmail => <div className={userEmail === user?.email ? 'hidden' : 'mt-3'} key={userEmail}>
                         <button onClick={() => sendInvitation(userEmail, userInfo.teamName)} className="btn btn-success font-bold">{userEmail}</button>
                     </div>)

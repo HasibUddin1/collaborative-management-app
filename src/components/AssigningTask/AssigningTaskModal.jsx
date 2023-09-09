@@ -42,6 +42,8 @@ const AssigningTaskModal = ({ task, setTasks }) => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Assign Task</h3>
                 {
+                    teamMembers.length === 0 ?
+                    <h1 className="text-xl font-semibold">No users available. Create accounts in order to view your team members</h1> :
                     teamMembers?.map(teamMember => <div className="mt-3" key={teamMember}>
                         <button onClick={() => assignTasks(teamMember)} className="btn btn-success font-bold">{teamMember}</button>
                     </div>)
