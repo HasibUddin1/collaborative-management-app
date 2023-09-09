@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { generateRandomId } from "../../helpers/generateRandomId/generateRandomId";
-import { getUniqueEmails } from "../../helpers/getUniqueTeamNames/getUniqueEmails";
 import toast from "react-hot-toast";
+import { getUniqueEmailsByTeam } from "../../helpers/getUsersByTeamName/getUniqueEmailsByTeam";
 
 
 const AddATask = () => {
 
     const [error, setError] = useState('')
-
-    const teamMembers = getUniqueEmails()
+    const teamMembers = getUniqueEmailsByTeam()
 
     const handleAddTask = event => {
         event.preventDefault()
