@@ -5,7 +5,7 @@ const SingleTask = ({ task, setTasks }) => {
 
     // TODO: Implementation of mark as in progress
 
-    const { id, taskTitle, taskStatus, taskPriority, taskDescription, dueDate, assign } = task
+    const { id, taskTitle, taskStatus, taskPriority, taskDescription, dueDate, assign, teamName } = task
 
     const handleCompleted = id => {
         const tasks = JSON.parse(localStorage.getItem("tasks")) || []
@@ -43,12 +43,17 @@ const SingleTask = ({ task, setTasks }) => {
                 <p>{taskDescription}</p>
                 <p><span className="font-semibold">Task Priority:</span> {taskPriority}</p>
                 <p><span className="font-semibold">Due Date:</span> {dueDate}</p>
+                <p><span className="font-semibold">Team Name:</span> {teamName}</p>
                 <p className="text-xl"><span className="font-semibold">Task Status:</span> {taskStatus}</p>
                 <div className="card-actions justify-end">
                     {
-                        taskStatus === 'Completed' ?
-                            <button onClick={() => handleInProgress(id)} className="btn btn-neutral w-fit">Mark as In Progress</button> :
-                            <button onClick={() => handleCompleted(id)} className="btn btn-success">Mark as Completed</button>
+                        taskStatus === 'Completed' || taskStatus === 'Pending' ?
+                            <button onClick={() => handleInProgress(id)} className="btn btn-neutral font-bold">Mark as In Progress</button> :
+                            taskStatus === 'In Progress' || taskStatus === 'Pending' ?
+                            <button onClick={() => handleCompleted(id)} className="btn btn-success font-bold">Mark as Completed</button> : 
+                            taskStatus === 'Pending' ?
+                            <button onClick={() => handleInProgress(id)} className="btn btn-neutral font-bold">Mark as In Progress</button> :
+                            <></>
                     }
                 </div>
                 <p className="text-end flex flex-col"><span className="font-semibold">Assigned To:</span> {assign}</p>
