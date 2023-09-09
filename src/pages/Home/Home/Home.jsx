@@ -3,12 +3,14 @@ import SingleTask from "../../../components/SingleTask/SingleTask";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import AddingMembersModal from "../../../components/AddingMembersModal/AddingMembersModal";
+import AssigningTaskModal from "../../../components/AssigningTask/AssigningTaskModal";
 
 
 
 const Home = () => {
 
     const [tasks, setTasks] = useState([])
+    const [task, setTask] = useState(null)
     const [filter, setFilter] = useState('all')
 
     const { user } = useContext(AuthContext)
@@ -58,15 +60,16 @@ const Home = () => {
             </div>
             {
                 tasks.length === 0 ?
-                    <h1 className="text-center text-4xl font-semibold">You do not have any tasks now. Create your task by going to <Link className="text-blue-500 hover:underline" to='/addATask'>Add A Task</Link></h1> :
+                    <h1 className="text-center text-4xl font-semibold mt-5">You do not have any tasks now based on your filter. Create your task by going to <Link className="text-blue-500 hover:underline" to='/addATask'>Add A Task</Link></h1> :
                     <>
-                        <div className="grid xl:grid-cols-3 gap-5">
+                        <div className="grid xl:grid-cols-3 gap-5 mt-5">
                             {
                                 tasks.map(task => <SingleTask
                                     key={task.id}
                                     task={task}
                                     tasks={tasks}
                                     setTasks={setTasks}
+                                    setTask={setTask}
                                 ></SingleTask>)
                             }
                         </div>
@@ -82,6 +85,7 @@ const Home = () => {
                     <></>
             }
             <AddingMembersModal></AddingMembersModal>
+            <AssigningTaskModal task={task}></AssigningTaskModal>
         </div>
     );
 };

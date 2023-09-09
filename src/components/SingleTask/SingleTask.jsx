@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 
-const SingleTask = ({ task, setTasks }) => {
+const SingleTask = ({ task, setTasks, setTask }) => {
 
     // TODO: Implementation of mark as in progress
 
@@ -28,7 +28,7 @@ const SingleTask = ({ task, setTasks }) => {
 
         const taskToUpdate = tasks.find(task => task.id === id)
 
-        if(taskToUpdate){
+        if (taskToUpdate) {
             taskToUpdate.taskStatus = 'In Progress'
             localStorage.setItem("tasks", JSON.stringify(tasks))
             setTasks(tasks)
@@ -50,13 +50,19 @@ const SingleTask = ({ task, setTasks }) => {
                         taskStatus === 'Completed' || taskStatus === 'Pending' ?
                             <button onClick={() => handleInProgress(id)} className="btn btn-neutral font-bold">Mark as In Progress</button> :
                             taskStatus === 'In Progress' || taskStatus === 'Pending' ?
-                            <button onClick={() => handleCompleted(id)} className="btn btn-success font-bold">Mark as Completed</button> : 
-                            taskStatus === 'Pending' ?
-                            <button onClick={() => handleInProgress(id)} className="btn btn-neutral font-bold">Mark as In Progress</button> :
-                            <></>
+                                <button onClick={() => handleCompleted(id)} className="btn btn-success font-bold">Mark as Completed</button> :
+                                taskStatus === 'Pending' ?
+                                    <button onClick={() => handleInProgress(id)} className="btn btn-neutral font-bold">Mark as In Progress</button> :
+                                    <></>
                     }
                 </div>
                 <p className="text-end flex flex-col"><span className="font-semibold">Assigned To:</span> {assign}</p>
+                <div className="card-actions justify-end">
+                    <button className="btn btn-warning font-bold" onClick={() => {
+                        document.getElementById('my_modal_2').showModal()
+                        setTask(task)
+                    }}>Reassign</button>
+                </div>
             </div>
         </div>
     );
