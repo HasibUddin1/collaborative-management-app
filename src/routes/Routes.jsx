@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import AddATask from "../pages/AddATask/AddATask";
+import TeamCollaboration from "../pages/TeamCollaboration/TeamCollaboration";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: 'addATask',
                 element: <AddATask></AddATask>
+            },
+            {
+                path: 'teamCollaboration',
+                element: <TeamCollaboration></TeamCollaboration>
             }
         ]
     }

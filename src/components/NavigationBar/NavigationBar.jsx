@@ -33,8 +33,8 @@ const NavigationBar = () => {
             to='/'
             className={({ isActive }) =>
                 isActive
-                    ? "bg-slate-900 px-3 py-1 rounded-lg"
-                    : "hover:bg-slate-900 ease-in-out duration-200 rounded-lg px-3 py-1"
+                    ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                    : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
             }
         >
             Home
@@ -43,11 +43,21 @@ const NavigationBar = () => {
             to='/addATask'
             className={({ isActive }) =>
                 isActive
-                    ? "bg-slate-900 px-3 py-1 rounded-lg"
-                    : "hover:bg-slate-900 ease-in-out duration-200 rounded-lg px-3 py-1"
+                    ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                    : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
             }
         >
             Add A Task
+        </NavLink>
+        <NavLink
+            to='/teamCollaboration'
+            className={({ isActive }) =>
+                isActive
+                    ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                    : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
+            }
+        >
+            Team Collaboration
         </NavLink>
         {
             user ?
@@ -57,8 +67,8 @@ const NavigationBar = () => {
                         to='/login'
                         className={({ isActive }) =>
                             isActive
-                                ? "bg-slate-900 px-3 py-1 rounded-lg"
-                                : "hover:bg-slate-900 ease-in-out duration-200 rounded-lg px-3 py-1"
+                                ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                                : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
                         }
                     >
                         Login
@@ -67,8 +77,8 @@ const NavigationBar = () => {
                         to='/signUp'
                         className={({ isActive }) =>
                             isActive
-                                ? "bg-slate-900 px-3 py-1 rounded-lg"
-                                : "hover:bg-slate-900 ease-in-out duration-200 rounded-lg px-3 py-1"
+                                ? "bg-gray-300 text-black px-3 py-1 rounded-lg"
+                                : "hover:bg-gray-300 hover:text-black ease-in-out duration-200 rounded-lg px-3 py-1"
                         }
                     >
                         Sign Up

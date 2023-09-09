@@ -2,6 +2,8 @@
 
 const SingleTask = ({ task, setTasks }) => {
 
+    // TODO: Implementation of mark as in progress
+
     const { id, taskTitle, taskStatus, taskPriority, taskDescription, dueDate, assign } = task
 
     const handleCompleted = id => {
@@ -24,9 +26,9 @@ const SingleTask = ({ task, setTasks }) => {
             <div className="card-body">
                 <h2 className="card-title">{taskTitle}</h2>
                 <p>{taskDescription}</p>
-                <p><span className="font-semibold">Task Status:</span> {taskStatus}</p>
                 <p><span className="font-semibold">Task Priority:</span> {taskPriority}</p>
                 <p><span className="font-semibold">Due Date:</span> {dueDate}</p>
+                <p className="text-xl"><span className="font-semibold">Task Status:</span> {taskStatus}</p>
                 <div className="card-actions justify-end">
                     {
                         taskStatus === 'Completed' ?

@@ -17,8 +17,6 @@ const Home = () => {
 
     const filteredTasks = tasks.filter(task => {
 
-        console.log(filter)
-
         if (filter === 'all') {
             return true
         }
@@ -39,7 +37,7 @@ const Home = () => {
     })
 
     return (
-        <div className="p-5">
+        <div className="p-5 w-9/12 mx-auto">
             <div>
                 <h2 className="text-xl font-semibold">Task List</h2>
                 <select className="border-2 border-black rounded" onChange={(e) => setFilter(e.target.value)}>

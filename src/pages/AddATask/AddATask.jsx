@@ -8,7 +8,7 @@ const AddATask = () => {
 
     const [error, setError] = useState('')
 
-    const teamNames = getUniqueEmails()
+    const teamMembers = getUniqueEmails()
 
     const handleAddTask = event => {
         event.preventDefault()
@@ -94,8 +94,8 @@ const AddATask = () => {
                     <div className="xl:w-1/3">
                         <label className="text-xl font-semibold" htmlFor="taskStatus">Task Status</label>
                         <select className="w-full px-4 py-2 rounded-lg block mt-2" name="taskStatus" id="taskStatus">
-                            <option value="In Progress">In Progress</option>
                             <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
                             <option value="Completed">Completed</option>
                         </select>
                     </div>
@@ -103,7 +103,7 @@ const AddATask = () => {
                         <label className="text-xl font-semibold" htmlFor="assign">Assign To</label>
                         <select className="w-full px-4 py-2 rounded-lg block mt-2" name="assign" id="assign">
                             {
-                                teamNames.map(team => <option key={team} value={team}>{team}</option>)
+                                teamMembers.map(team => <option key={team} value={team}>{team}</option>)
                             }
                         </select>
                     </div>
@@ -117,6 +117,7 @@ const AddATask = () => {
                 </div>
                 {error && <p className="text-red-500 text-xl text-center font-semibold">{error}</p>}
             </form>
+            <h1 className="text-center text-2xl mt-5"><span className="font-bold">Important Note:</span> Before assigning a task to any user you must invite him to your team</h1>
         </div>
     );
 };
