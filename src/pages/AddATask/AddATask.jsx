@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { generateRandomId } from "../../components/generateRandomId/generateRandomId";
+import { generateRandomId } from "../../helpers/generateRandomId/generateRandomId";
+import { getUniqueEmails } from "../../helpers/getUniqueTeamNames/getUniqueEmails";
+import toast from "react-hot-toast";
 
 
 const AddATask = () => {
 
     const [error, setError] = useState('')
+
+    const teamNames = getUniqueEmails()
 
     const handleAddTask = event => {
         event.preventDefault()
@@ -56,13 +60,14 @@ const AddATask = () => {
             taskDescription,
             taskStatus
         }
-        
+
         const existingTasks = JSON.parse(localStorage.getItem("tasks")) || []
 
         const updatedTasks = [...existingTasks, taskInfo]
 
         localStorage.setItem("tasks", JSON.stringify(updatedTasks))
         form.reset()
+        toast.success("Added task successfully")
     }
 
     return (
@@ -83,10 +88,6 @@ const AddATask = () => {
                 </div>
                 <div className="xl:flex gap-10">
                     <div className="xl:w-1/3">
-                        <label className="text-xl font-semibold" htmlFor="assign">Assign To</label>
-                        <input className="w-full px-4 py-2 rounded-lg block mt-2" type="text" name="assign" id="assign" placeholder="Task Title" />
-                    </div>
-                    <div className="xl:w-1/3">
                         <label className="text-xl font-semibold" htmlFor="dueDate">Due Date</label>
                         <input className="w-full px-4 py-2 rounded-lg block mt-2" type="date" name="dueDate" id="dueDate" placeholder="Due Date" />
                     </div>
@@ -96,6 +97,14 @@ const AddATask = () => {
                             <option value="In Progress">In Progress</option>
                             <option value="Pending">Pending</option>
                             <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div className="xl:w-1/3">
+                        <label className="text-xl font-semibold" htmlFor="assign">Assign To</label>
+                        <select className="w-full px-4 py-2 rounded-lg block mt-2" name="assign" id="assign">
+                            {
+                                teamNames.map(team => <option key={team} value={team}>{team}</option>)
+                            }
                         </select>
                     </div>
                 </div>

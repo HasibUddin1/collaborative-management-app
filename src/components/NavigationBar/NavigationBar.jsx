@@ -12,9 +12,9 @@ const NavigationBar = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/users/${user?.email}`)
-                .then(res => res.json())
-                .then(data => setUserInfo(data))
+            const users = JSON.parse(localStorage.getItem("users")) || []
+            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            setUserInfo(loggedUser)
         }
     }, [user])
 
@@ -96,12 +96,12 @@ const NavigationBar = () => {
                             <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
-                                        <img src={user?.photoURL} />
+                                        <img src={user?.photoURL || userInfo?.userImage} />
                                     </div>
                                 </label>
                                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black">
                                     <li>
-                                        <a className="text-xl flex flex-wrap"><span className="font-semibold">Username:</span> {user?.displayName}</a>
+                                        <a className="text-xl flex flex-wrap"><span className="font-semibold">Username:</span> {user?.displayName || userInfo?.userName}</a>
                                     </li>
                                     <hr className="border-black" />
                                     <li><a className="text-xl flex flex-wrap"><span className="font-semibold">Bio:</span> {userInfo?.bio}</a></li>

@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import { AuthContext } from './../../providers/AuthProvider';
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { generateRandomId } from "../../helpers/generateRandomId/generateRandomId";
 
 const SignUp = () => {
+
+    // TODO: regex implementation is left for not filling the fields
 
     const { createUser, updateUsersProfile } = useContext(AuthContext)
 
@@ -19,6 +22,7 @@ const SignUp = () => {
         const email = form.email.value
         const password = form.password.value
         const bio = form.bio.value
+        const teamName = form.teamName.value
         const token = import.meta.env.VITE_IMAGE_TOKEN
 
         const regex = /^\S+$/;
@@ -48,26 +52,21 @@ const SignUp = () => {
                                 .then(() => {
 
                                     const userInfo = {
+                                        id: generateRandomId(),
                                         userEmail: email,
                                         userName: userName,
                                         userImage: image,
-                                        bio: bio
+                                        bio: bio,
+                                        teamName: teamName
                                     }
 
-                                    fetch('http://localhost:5000/users', {
-                                        method: 'POST',
-                                        headers: {
-                                            'content-type': 'application/json'
-                                        },
-                                        body: JSON.stringify(userInfo)
-                                    })
-                                        .then(res => res.json())
-                                        .then(data => {
-                                            if (data.insertedId) {
-                                                toast.success('User has been created successfully')
-                                                navigate('/')
-                                            }
-                                        })
+                                    const existingUsers = JSON.parse(localStorage.getItem("users")) || []
+
+                                    const updatedUsers = [...existingUsers, userInfo]
+
+                                    localStorage.setItem("users", JSON.stringify(updatedUsers))
+                                    navigate('/')
+                                    toast.success('User has been created successfully')
                                 })
                                 .catch(error => {
                                     console.log(error)
@@ -97,6 +96,10 @@ const SignUp = () => {
                 <div className="relative z-0 w-full mb-6 group">
                     <input type="password" name="password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                     <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                </div>
+                <div className="relative z-0 w-full mb-6 group">
+                    <input type="text" name="teamName" id="floating_teamName" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label htmlFor="floating_teamName" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Team Name</label>
                 </div>
                 <div className="flex flex-col w-1/2">
                     <label className="text-gray-600" htmlFor="bio">Bio</label>
