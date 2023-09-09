@@ -8,7 +8,7 @@ export const getUniqueEmailsByTeam = () => {
 
     const users = JSON.parse(localStorage.getItem("users")) || []
     if (user) {
-        const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+        const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
         const emails = new Set();
 
         users.forEach((user) => {

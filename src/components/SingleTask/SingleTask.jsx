@@ -14,7 +14,7 @@ const SingleTask = ({ task, setTasks, setTask }) => {
     useEffect(() => {
         if(user){
             const users = JSON.parse(localStorage.getItem("users")) || []
-            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
             setUserInfo(loggedUser)
         }
     }, [user])
@@ -24,12 +24,12 @@ const SingleTask = ({ task, setTasks, setTask }) => {
     const handleCompleted = id => {
         const tasks = JSON.parse(localStorage.getItem("tasks")) || []
 
-        const taskToUpdate = tasks.find(task => task.id === id)
+        const taskToUpdate = tasks?.find(task => task.id === id)
 
         if (taskToUpdate) {
             taskToUpdate.taskStatus = 'Completed'
             localStorage.setItem("tasks", JSON.stringify(tasks))
-            const tasksToDisplay = tasks.filter(singleTask => singleTask.teamName === userInfo.teamName)
+            const tasksToDisplay = tasks?.filter(singleTask => singleTask.teamName === userInfo.teamName)
             setTasks(tasksToDisplay)
             toast.success("Task status has been set to completed")
         }
@@ -41,12 +41,12 @@ const SingleTask = ({ task, setTasks, setTask }) => {
     const handleInProgress = id => {
         const tasks = JSON.parse(localStorage.getItem("tasks")) || []
 
-        const taskToUpdate = tasks.find(task => task.id === id)
+        const taskToUpdate = tasks?.find(task => task.id === id)
 
         if (taskToUpdate) {
             taskToUpdate.taskStatus = 'In Progress'
             localStorage.setItem("tasks", JSON.stringify(tasks))
-            const tasksToDisplay = tasks.filter(singleTask => singleTask.teamName === userInfo.teamName)
+            const tasksToDisplay = tasks?.filter(singleTask => singleTask.teamName === userInfo.teamName)
             setTasks(tasksToDisplay)
             toast.success("Task status has been set to in progress")
         }

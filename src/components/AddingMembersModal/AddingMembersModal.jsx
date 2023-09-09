@@ -14,7 +14,7 @@ const AddingMembersModal = () => {
 
     const sendInvitation = (email, teamName) => {
         const users = JSON.parse(localStorage.getItem("users")) || []
-        const userToAddInTeam = users.find(singleUser => singleUser.userEmail === email)
+        const userToAddInTeam = users?.find(singleUser => singleUser.userEmail === email)
         
         if(userToAddInTeam){
             userToAddInTeam.teamName = teamName
@@ -31,7 +31,7 @@ const AddingMembersModal = () => {
     useEffect(() => {
         if(user){
             const users = JSON.parse(localStorage.getItem("users")) || []
-            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
             setUserInfo(loggedUser)
         }
     }, [user])
@@ -41,9 +41,9 @@ const AddingMembersModal = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-2xl">Invite Users</h3>
                 {
-                    userEmails.length === 0 ? 
+                    userEmails?.length === 0 ? 
                     <h1 className="text-xl font-semibold">No users available. Create accounts in order to view your team members</h1> :
-                    userEmails.map(userEmail => <div className={userEmail === user?.email ? 'hidden' : 'mt-3'} key={userEmail}>
+                    userEmails?.map(userEmail => <div className={userEmail === user?.email ? 'hidden' : 'mt-3'} key={userEmail}>
                         <button onClick={() => sendInvitation(userEmail, userInfo.teamName)} className="btn btn-success font-bold">{userEmail}</button>
                     </div>)
                 }

@@ -17,11 +17,11 @@ const Home = () => {
 
     useEffect(() => {
         const users = JSON.parse(localStorage.getItem("users")) || [];
-        const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email);
+        const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email);
         const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
         // Filter tasks based on both user and filter
-        const tasksToDisplay = storedTasks.filter(singleTask => {
+        const tasksToDisplay = storedTasks?.filter(singleTask => {
             return (
                 singleTask?.teamName === loggedUser?.teamName &&
                 (filter === 'all' ||
@@ -59,12 +59,12 @@ const Home = () => {
                 </div>
             </div>
             {
-                tasks.length === 0 ?
+                tasks?.length === 0 ?
                     <h1 className="text-center text-4xl font-semibold mt-5">You do not have any tasks now based on your filter. Create your task by going to <Link className="text-blue-500 hover:underline" to='/addATask'>Add A Task</Link></h1> :
                     <>
                         <div className="grid xl:grid-cols-3 gap-5 mt-5">
                             {
-                                tasks.map(task => <SingleTask
+                                tasks?.map(task => <SingleTask
                                     key={task.id}
                                     task={task}
                                     tasks={tasks}

@@ -15,7 +15,7 @@ const AssigningTaskModal = ({ task, setTasks }) => {
     useEffect(() => {
         if(user){
             const users = JSON.parse(localStorage.getItem("users")) || []
-            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
             setUserInfo(loggedUser)
         }
     }, [user])
@@ -33,7 +33,7 @@ const AssigningTaskModal = ({ task, setTasks }) => {
         localStorage.setItem("tasks", JSON.stringify(updatedTasks))
 
         toast.success(`Successfully assigned task to ${email}`)
-        const tasksToDisplay = tasks.filter(singleTask => singleTask.teamName === userInfo.teamName)
+        const tasksToDisplay = tasks?.filter(singleTask => singleTask.teamName === userInfo.teamName)
         setTasks(tasksToDisplay)
     }
 
@@ -42,7 +42,7 @@ const AssigningTaskModal = ({ task, setTasks }) => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Assign Task</h3>
                 {
-                    teamMembers.length === 0 ?
+                    teamMembers?.length === 0 ?
                     <h1 className="text-xl font-semibold">No users available. Create accounts in order to view your team members</h1> :
                     teamMembers?.map(teamMember => <div className="mt-3" key={teamMember}>
                         <button onClick={() => assignTasks(teamMember)} className="btn btn-success font-bold">{teamMember}</button>

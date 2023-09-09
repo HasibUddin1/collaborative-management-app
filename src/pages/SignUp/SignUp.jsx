@@ -144,7 +144,7 @@ const SignUp = () => {
                         <select className="w-full px-4 py-2 rounded-lg block mt-2 border border-black" name="teamName2" id="assign">
                             <option value="Select Your Team" defaultChecked>Select Your Team</option>
                             {
-                                teamNames.map(teamName => <option key={teamName} value={teamName}>{teamName}</option>)
+                                teamNames?.map(teamName => <option key={teamName} value={teamName}>{teamName}</option>)
                             }
                         </select>
                     </div>

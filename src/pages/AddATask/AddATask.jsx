@@ -17,7 +17,7 @@ const AddATask = () => {
     useEffect(() => {
         if (user) {
             const users = JSON.parse(localStorage.getItem("users")) || []
-            const loggedUser = users.find(singleUser => singleUser.userEmail === user?.email)
+            const loggedUser = users?.find(singleUser => singleUser.userEmail === user?.email)
             setUserInfo(loggedUser)
         }
     }, [user])
